@@ -1,0 +1,294 @@
+/* styles/main.css */
+
+/* ===========================================
+   Variables de Paleta de Color — “Noches Mousse”
+   Pantone Mocha Mousse, Aura Indigo, Butter Yellow
+   =========================================== */
+:root {
+  --color-fondo:       #EDE1C5; /* Alpine Oat / fondo neutro */
+  --color-texto:       #1E1E1E; /* Gunmetal / texto principal */
+  --color-primario:    #A67B5B; /* Mocha Mousse / botones CTA */
+  --color-secundario:  #5D3FD3; /* Aura Indigo / acentos */
+  --color-acento:      #F9DD16; /* Butter Yellow / highlights */
+  --color-error:       #D93025; /* Rojo alerta */
+  --font-family:       'Poppins', sans-serif;
+}
+
+/* ===========================================
+   Reset & Base
+   =========================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  font-family: var(--font-family);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ===========================================
+   Contenedor Principal
+   =========================================== */
+.contenedor {
+  padding: 1rem;
+}
+@media (min-width: 600px) {
+  .contenedor {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+}
+@media (min-width: 1024px) {
+  .contenedor {
+    max-width: 800px;
+  }
+}
+
+/* ===========================================
+   Tipografía
+   =========================================== */
+.header-principal h1 {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+.header-principal .subtitle {
+  font-size: 1rem;
+  text-align: center;
+  color: var(--color-secundario);
+  margin-bottom: 1.5rem;
+}
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* ===========================================
+   Formularios & Grupos de Input
+   =========================================== */
+.grupo-input {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.grupo-input input {
+  flex: 1;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.grupo-input input:focus {
+  outline: 2px solid var(--color-secundario);
+}
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap;
+  border: 0;
+}
+.mensaje-error {
+  color: #fff;
+  background: var(--color-error);
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+/* ===========================================
+   Lista de Jugadores
+   =========================================== */
+.lista-jugadores ul {
+  list-style: disc inside;
+  margin-bottom: 1rem;
+}
+
+/* ===========================================
+   Botones
+   =========================================== */
+button {
+  font-size: 1rem;
+  font-family: var(--font-family);
+  transition: background 0.2s, transform 0.1s;
+  cursor: pointer;
+}
+.boton-primario {
+  background: var(--color-primario);
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+}
+.boton-primario:hover,
+.boton-primario:focus {
+  background: var(--color-secundario);
+  outline: none;
+}
+.boton-primario:focus {
+  outline: 2px dashed var(--color-acento);
+  outline-offset: 2px;
+}
+.boton-primario:active {
+  transform: scale(0.98);
+}
+.boton-secundario {
+  background: var(--color-texto);
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 4px;
+}
+.boton-secundario:hover {
+  background: var(--color-primario);
+}
+.boton-secundario:active {
+  transform: scale(0.98);
+}
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ===========================================
+   Paneles y Secciones
+   =========================================== */
+.panel {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+}
+.oculto {
+  display: none !important;
+}
+
+/* ===========================================
+   Badge de Turno y Temporizador
+   =========================================== */
+.cabecera-juego {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+@media (min-width: 600px) {
+  .cabecera-juego {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+.badge-turno {
+  background: var(--color-secundario);
+  color: #fff;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+}
+.temporizador-contenedor {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.barra-temporizador {
+  flex: 1;
+  height: 8px;
+  background: #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.barra-temporizador > div {
+  height: 100%;
+  background: var(--color-acento);
+  width: 100%; /* actualizado vía JS */
+}
+.texto-temporizador {
+  width: 2.5rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* ===========================================
+   Carta Flip
+   =========================================== */
+.contenedor-carta {
+  perspective: 1000px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 1rem;
+}
+.carta {
+  width: 100%;
+  height: 250px;
+  position: relative;
+}
+.carta-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+.carta[aria-expanded="true"] .carta-inner {
+  transform: rotateY(180deg);
+}
+.carta-frontal,
+.carta-trasera {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  background: #fff;
+}
+.carta-trasera {
+  transform: rotateY(180deg);
+}
+.diseno-carta h2 {
+  font-size: 1.4rem;
+  color: var(--color-texto);
+}
+
+/* ===========================================
+   Mensajes de Fin de Mazo
+   =========================================== */
+.fin-mazo {
+  text-align: center;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  padding: 1rem;
+  border-radius: 4px;
+  margin-top: 1rem;
+}
+.fin-mazo p {
+  margin-bottom: 1rem;
+}
+
+/* ===========================================
+   Footer
+   =========================================== */
+.footer-principal {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 2rem;
+}

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Juguemos Huevadas</title>
+  <!-- Descripción para SEO -->
+  <meta name="description" content="Prototipo web de dinámicas de fiesta con cartas, retos, turnos y temporizador.">
+  <!-- Estilos principales -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- Fuentes externas -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Mensaje para usuarios sin JavaScript -->
+  <noscript>
+    <p>Para disfrutar de la experiencia completa, habilita JavaScript en tu navegador.</p>
+  </noscript>
+
+  <!-- Contenedor principal de la aplicación -->
+  <div id="app" class="contenedor">
+    
+    <!-- ===== CABECERA PRINCIPAL ===== -->
+    <header class="header-principal">
+      <h1>Juguemos Huevadas</h1>
+      <p class="subtitle">¡Diversión garantizada!</p>
+    </header>
+
+    <!-- ===== SECCIÓN DE REGISTRO DE JUGADORES ===== -->
+    <section id="registro-section" class="panel" aria-labelledby="titulo-registro">
+      <h2 id="titulo-registro">Registro de Jugadores</h2>
+      <form id="registro-form" novalidate>
+        <!-- Grupo de entrada: nombre y botón Agregar -->
+        <div class="grupo-input">
+          <label for="nombre-jugador" class="sr-only">Nombre del jugador</label>
+          <input
+            type="text"
+            id="nombre-jugador"
+            placeholder="Nombre del jugador"
+            aria-describedby="error-nombre"
+            required
+            autofocus>
+          <!-- Botón para añadir jugador -->
+          <button type="button" id="agregar-jugador" class="boton-secundario">
+            Agregar
+          </button>
+        </div>
+        <!-- Contenedor para mostrar mensajes de error -->
+        <div id="error-nombre" class="mensaje-error" role="alert"></div>
+        <!-- Lista dinámica de jugadores agregados -->
+        <div class="lista-jugadores">
+          <h3>Jugadores:</h3>
+          <ul id="jugadores-ul" aria-live="polite"></ul>
+        </div>
+        <!-- Botón para iniciar el juego cuando haya suficientes jugadores -->
+        <button type="button" id="comenzar-juego" class="boton-primario">
+          Comenzar Juego
+        </button>
+      </form>
+    </section>
+
+    <!-- ===== SECCIÓN DE JUEGO (OCULTA AL INICIO) ===== -->
+    <section id="juego-section" class="panel oculto" aria-hidden="true">
+      <!-- Indicadores de turno y temporizador -->
+      <header class="cabecera-juego">
+        <!-- Badge que muestra el jugador actual -->
+        <div id="turno-badge" class="badge-turno" role="status" aria-live="polite">
+          Turno de: <span id="jugador-actual">Jugador 1</span>
+        </div>
+        <!-- Temporizador: barra y texto -->
+        <div class="temporizador-contenedor" aria-label="Temporizador">
+          <div id="barra-temporizador" class="barra-temporizador"></div>
+          <div id="texto-temporizador" class="texto-temporizador">30</div>
+        </div>
+      </header>
+
+      <!-- Contenido principal del juego: carta y botones -->
+      <div class="contenido-juego">
+        <!-- Contenedor de la carta con animación flip -->
+        <div class="contenedor-carta" role="region" aria-label="Carta del juego">
+          <div class="carta" id="carta" role="button" aria-expanded="false" tabindex="0">
+            <div class="carta-inner">
+              <!-- Lado frontal de la carta -->
+              <div class="carta-frontal">
+                <div class="diseno-carta">
+                  <h2>Juguemos Huevadas</h2>
+                </div>
+              </div>
+              <!-- Lado trasero que muestra la clave y el reto -->
+              <div class="carta-trasera">
+                <div class="contenido-carta">
+                  <div class="titulo-carta" id="titulo-carta">A</div>
+                  <div class="texto-carta" id="texto-carta">
+                    Presiona “Mostrar Carta” para ver el reto.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Botón para voltear la carta -->
+        <button id="mostrar-carta" class="boton-primario">
+          Mostrar Carta
+        </button>
+        <!-- Botón para pasar al siguiente turno (oculto hasta mostrar carta) -->
+        <button id="siguiente-turno" class="boton-primario oculto">
+          Pasar al siguiente turno
+        </button>
+        <!-- Mensaje de penalización (tiempo o carta repetida) -->
+        <div id="mensaje-penalizacion" class="mensaje-error oculto" role="alert"></div>
+        <!-- Mensaje de fin de mazo con opciones -->
+        <div id="fin-mazo" class="fin-mazo oculto">
+          <p>¡Se acabaron las cartas! Toma 4 shots o haz un reto que propongan los jugadores.</p>
+          <button id="reiniciar-mazo" class="boton-primario">Reiniciar con mismos jugadores</button>
+          <button id="volver-registro" class="boton-secundario">Volver al registro</button>
+        </div>
+      </div>
+
+      <!-- Pie de sección de juego -->
+      <footer class="pie-juego">
+        <!-- Botón para volver al registro desde el juego -->
+        <button id="volver-registro" class="boton-secundario">
+          Volver al Registro
+        </button>
+      </footer>
+    </section>
+
+    <!-- ===== FOOTER GENERAL ===== -->
+    <footer class="footer-principal">
+      <p>Equipo “Juguemos Huevadas” – Ingeniería de Software ESPE © 2025</p>
+    </footer>
+  </div>
+
+  <!-- Efectos de audio precargados -->
+  <audio id="sonido-voltear" preload="metadata">
+    <source src="assets/flip.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio.
+  </audio>
+  <audio id="sonido-temporizador" preload="metadata">
+    <source src="assets/timer-end.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio.
+  </audio>
+
+  <!-- Scripts modulares ES6 -->
+  <script type="module" src="js/api/indexeddb.js"></script>
+  <script type="module" src="js/components/cartaDisplay.js"></script>
+  <script type="module" src="js/components/temporizador.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
